@@ -1,0 +1,12 @@
+#%PAM-1.0
+session    optional     pam_keyinit.so    force revoke
+auth       required     pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+auth       include      password-auth
+account    include      password-auth
+session    required     pam_loginuid.so
+session    include      password-auth
+
+# pam_shells.so表示登录时用户的shell必须为/etc/shells之一，
+# 而我们自建的账户为/sbin/nologin，
+# 注释这项表示登录用户无须验证为/etc/shells之一。
+#auth       required     pam_shells.so

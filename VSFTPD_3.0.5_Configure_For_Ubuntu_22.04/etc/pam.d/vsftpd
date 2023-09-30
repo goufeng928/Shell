@@ -1,0 +1,16 @@
+# /etc/pam.d/vsftpd
+
+# Standard behaviour for ftpd(8).
+auth	required	pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed
+
+# Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.
+
+# Standard pam includes
+@include common-account
+@include common-session
+@include common-auth
+
+# pam_shells.so表示登录时用户的shell必须为/etc/shells之一，
+# 而我们自建的账户为/sbin/nologin，
+# 注释这项表示登录用户无须验证为/etc/shells之一。
+#auth	required	pam_shells.so
